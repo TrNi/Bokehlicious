@@ -6,6 +6,8 @@
 
 Official Code and Dataset repository of Bokehlicious: Photorealistic Bokeh Rendering with Controllable Apertures
 
+### [Project Page](https://timseizinger.github.io/BokehliciousProjectPage/)
+
 ## Installation
 
 ```
@@ -44,7 +46,7 @@ Here _-dataset_ is the dataset you want to evaluate on (RealBokeh, RealBokeh_bin
 
 You can find our RealBokeh Dataset on Huggingface!
 
-[![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-lg.svg)](https://huggingface.co/datasets)
+[![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-lg.svg)](https://huggingface.co/datasets/timseizinger/RealBokeh_3MP)
 
 ## Citation
 
