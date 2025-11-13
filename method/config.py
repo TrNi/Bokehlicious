@@ -17,6 +17,8 @@ def bokehlicious_size_builder(size: str):
             return bokehlicious_config_builder(strength_enc=False)
         elif size == "large":
             return bokehlicious_config_builder()
+    elif size == "defocus_deblur":
+        return bokehlicious_config_builder(strength_enc=False)
     raise ValueError(f'Unknown size "{size}"')
 
 

@@ -7,7 +7,7 @@ def get_base_parser():
     return parser
 
 def add_network_args(parser: ArgumentParser):
-    parser.add_argument('-size', type=str, required=True, choices=['small', 'large'])
+    parser.add_argument('-size', type=str, required=True, choices=['small', 'large', 'defocus_deblur'])
     parser.add_argument('-device', type=str, default='cuda', choices=['cuda', 'cpu'])
 
 def add_img_args(parser: ArgumentParser):

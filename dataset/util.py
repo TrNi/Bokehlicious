@@ -5,7 +5,7 @@ from PIL import Image
 from numpy import array
 from torch import Tensor, linspace, meshgrid, tensor, cat, float32, full
 from torchvision.transforms.functional import to_tensor
-from cv2 import resize, INTER_CUBIC
+from cv2 import resize, INTER_AREA
 from pathlib import Path
 
 class Mode(Enum):
@@ -14,7 +14,7 @@ class Mode(Enum):
     TEST = 'test'
     PRED = 'prediction'
 
-def load_image(img_path, target_av=2.0, max_dim=2000, interpolation=INTER_CUBIC, min_divisor=4, device='cuda') -> dict:
+def load_image(img_path, target_av=2.0, max_dim=2000, interpolation=INTER_AREA, min_divisor=4, device='cuda') -> dict:
     """
     Loads an image and prepares it for input to the model
     :param img_path: path to the image
@@ -26,9 +26,9 @@ def load_image(img_path, target_av=2.0, max_dim=2000, interpolation=INTER_CUBIC,
     """
     img = Image.open(img_path)
 
-    img = crop_to_divisible(img, min_divisor)
-
     img = downsample(img, max_dim, interpolation)
+
+    img = crop_to_divisible(img, min_divisor)
 
     aperture_embedding = calculate_aperture_embedding(target_av)
 

@@ -16,6 +16,8 @@ pip install -r requirements.txt
 
 ## Usage
 
+Due to GitHub file size limits, if you want to use any of the large model checkpoints, don't forget to unpack the .zpaq archives!
+
 predict.py lets you run Bokehlicious on a single image.
 For example:
 ```
