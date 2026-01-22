@@ -8,6 +8,13 @@ Official Code and Dataset repository of Bokehlicious: Photorealistic Bokeh Rende
 
 ### [Project Page](https://timseizinger.github.io/BokehliciousProjectPage/)
 
+### Updates:
+
+#### 22.1.2026: 
+In collaboration with [NTIRE (New Trends in Image Restoration and Enhancement) Workshop @ CVPR 2026](https://cvlai.net/ntire/2026/) we are hosting a Challenge on Controllable Aperture Bokeh Rendering! The goal is to beat our Baseline method from this repository, with the top teams invited to present their solution at NTIRE @ CVPR 2026
+
+**Sign up here: https://www.codabench.org/competitions/12764/** 
+ 
 ## Installation
 
 ```
