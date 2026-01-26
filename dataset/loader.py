@@ -19,16 +19,18 @@ class RealBokeh(Dataset):
     def __init__(self, data_path: Union[str, Path], mode: Mode,
                  binary_bokeh: bool = False,
                  defocus_deblur_mode: bool = False,
-                 device: str = 'cuda'
+                 device: str = 'cuda',
+                 challenge: bool = False
                  ):
         self._data_path: Path = Path(data_path) if isinstance(data_path, str) else data_path
-        assert self._data_path.exists(), f"Data directory {self._data_path} does not exist!"
+        assert self._data_path.exists(), f"Data directory {self._data_path.absolute()} does not exist!"
 
         self.defocus_deblur_mode = defocus_deblur_mode
         if self.defocus_deblur_mode:
             print("Dataset is in Defocus Deblur mode!")
 
         self._mode = mode
+        self.challenge = challenge # Activate if used in the context of a challenge.
         # Iterate over individual samples of each scene for validation and test, over scenes where a random sample of a
         self._iteration_mode = 'sample'
 
@@ -69,7 +71,7 @@ class RealBokeh(Dataset):
         if self._iteration_mode == 'sample':
             metadata: dict = self._scene_list[self._sample_list[index][0]]
 
-            target = Image.open(self._mode_dir.joinpath(metadata['target_images'][self._sample_list[index][1]]))
+            target = Image.open(self._mode_dir.joinpath(metadata['target_images'][self._sample_list[index][1]])) if not self.challenge else None
             tgt_av = metadata['target_avs'][self._sample_list[index][1]]
 
             target_name = Path(metadata['target_images'][self._sample_list[index][1]]).stem
@@ -77,8 +79,7 @@ class RealBokeh(Dataset):
             metadata: dict = self._scene_list[index]
 
             target_idx = 0
-            target = Image.open(self._mode_dir.joinpath(metadata['target_images'][target_idx])) if \
-                self._mode != Mode.PRED else None
+            target = Image.open(self._mode_dir.joinpath(metadata['target_images'][target_idx])) if not self.challenge else None
             tgt_av = metadata['target_avs'][target_idx]
 
             target_name = Path(metadata['target_images'][target_idx]).stem

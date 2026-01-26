@@ -13,7 +13,12 @@ Official Code and Dataset repository of Bokehlicious: Photorealistic Bokeh Rende
 #### 22.1.2026: 
 In collaboration with [NTIRE (New Trends in Image Restoration and Enhancement) Workshop @ CVPR 2026](https://cvlai.net/ntire/2026/) we are hosting a Challenge on Controllable Aperture Bokeh Rendering! The goal is to beat our Baseline method from this repository, with the top teams invited to present their solution at NTIRE @ CVPR 2026
 
-**Sign up here: https://www.codabench.org/competitions/12764/** 
+**Sign up here: https://www.codabench.org/competitions/12764/**
+
+#### 26.1.2026
+
+This repo now includes a script (```submit_ntire.py```) for easy submission of your results to the [NTIRE 2026 Challenge on Controllable Bokeh Rendering](https://www.codabench.org/competitions/12764/)!
+NTIRE related setup instructions can be found ```in submit_ntire.py```.
  
 ## Installation
 
@@ -37,10 +42,10 @@ Here _-img\_path_ is the path to the image you want to render, _-size_ is the si
 
 ## Evaluation
 
-This Repository includes evaluation scripts for Bokeh Rendering on our new RealBokeh dataset, as well as EBB! Val294 and EBB400.
+This Repository includes evaluation scripts for Bokeh Rendering on our new *RealBokeh* dataset, as well as *EBB! Val294* and *EBB400*.
 
 Before running the evaluation script you need to download the [test set](https://huggingface.co/datasets/timseizinger/RealBokeh_3MP/tree/main/test) of RealBokeh and copy it to the ./dataset/RealBokeh folder.
-The same applies to EBB! Val294 and EBB400.
+The same applies to EBB! Val294 (./dataset/EBB_Val294) and EBB400 (./dataset/EBB400).
 
 To run the evaluation script use:
 ```
