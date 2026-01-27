@@ -84,6 +84,15 @@ if __name__ == "__main__":
                      dirs_exist_ok=True)
             rmtree(args.dataset_root_dir / 'Bokeh_NTIRE2026_Test_Inputs ')
             print("Successfully finished test dataset setup!")
+    # Setup dirs for saving results
+    output_directory = args.out_path / args.name / 'NTIRE2026BokehChallenge' / args.phase
+    # Clean output directory
+    try:
+        rmtree(output_directory)
+    except FileNotFoundError:
+        pass
+    makedirs(output_directory, exist_ok=False)
+    print(f"Saving outputs to {output_directory.absolute()}")
 
     # Network Name is used in the Codalab leaderboard, set as desired with the -name argument
     print(f"Running Architecture {args.name} on {'Development' if args.phase == 'dev' else 'Test'} set...")
@@ -106,11 +115,6 @@ if __name__ == "__main__":
     # Initialize evaluation dataset, use '-phase test' argument for the final test phase
     dataloader = RealBokeh(data_path=dataset_path, mode=Mode.VAL if args.phase=='dev' else Mode.TEST, device=args.device, challenge=True)
     print(f"Initialized RealBokeh (NTIRE 2026 challenge) {'Development' if args.phase == 'dev' else 'Test'} phase dataloader")
-
-    # Setup dirs for saving results
-    output_directory = args.out_path / args.name / 'NTIRE2026BokehChallenge' / args.phase
-    makedirs(output_directory, exist_ok=True)
-    print(f"Saving outputs to {output_directory.absolute()}")
 
     # We use cuda events for timing network inference times
     start_events = [Event(enable_timing=True) for _ in range(len(dataloader))]
@@ -156,7 +160,7 @@ if __name__ == "__main__":
         print(readme.read())
 
     print(f"Creating zip archive for Codabench submission...")
-    archive_file = args.out_path / f'Submission_{args.phase}_{args.name}_{datetime.now().strftime("%Y-%m-%d_%H:%M")}'
+    archive_file = args.out_path / f'{args.name}_{args.phase}_{datetime.now().strftime("%Y-%m-%d_%H:%M")}'
     make_archive(archive_file, 'zip', root_dir=output_directory)
 
     print(f"Please upload your submission file found at {archive_file.absolute()}.zip to https://www.codabench.org/competitions/12764/#/participate-tab!")
