@@ -114,6 +114,19 @@ if __name__ == "__main__":
 
     # Initialize evaluation dataset, use '-phase test' argument for the final test phase
     dataloader = RealBokeh(data_path=dataset_path, mode=Mode.VAL if args.phase=='dev' else Mode.TEST, device=args.device, challenge=True)
+    try:
+        if args.phase == 'dev':
+            assert len(dataloader) == 78, (
+                f"There should be 78 images in the development set, but {len(dataloader)} were found. \n"
+                f"Please make sure you are using the correct input data found here: "
+                f"https://www.codabench.org/datasets/download/35a0a692-48df-4b91-a716-b438beaf94de/ \n")
+        else:  # args.phase == test
+            pass
+    except AssertionError as error:
+        warn(f"Incorrect input data found at {dataset_path / 'validation' if args.phase == 'dev' else 'test'}. Resetting directory!")
+        rmtree(dataset_path / 'validation' if args.phase == 'dev' else 'test')
+        raise error
+
     print(f"Initialized RealBokeh (NTIRE 2026 challenge) {'Development' if args.phase == 'dev' else 'Test'} phase dataloader")
 
     # We use cuda events for timing network inference times
@@ -153,6 +166,7 @@ if __name__ == "__main__":
         readme.write(f"Runtime:{avg_time / 1000:.3f}s\n")
         readme.write(f"Device:{get_device_name()}\n")
         readme.write(f"Extra data:{'Yes' if args.extra_data else 'No'}\n")
+        readme.write(f"Script Version:{1.2}\n")
 
     print(f"Wrote metadata to {metadata_file.absolute()}:")
     print("")
@@ -161,6 +175,41 @@ if __name__ == "__main__":
 
     print(f"Creating zip archive for Codabench submission...")
     archive_file = args.out_path / f'{args.name}_{args.phase}_{datetime.now().strftime("%Y-%m-%d_%H:%M")}'
+
+    # check if correct number of images are in the output directory
+    if args.phase == 'dev':
+        image_names = [
+            '8_f9.0.png', '6_f5.6.png', '23_f2.0.png', '21_f8.0.png', '17_f2.0.png', '2_f2.0.png', '25_f2.0.png',
+            '28_f9.0.png', '6_f3.5.png', '9_f16.png', '27_f18.png', '28_f2.0.png', '5_f2.0.png', '15_f2.2.png',
+            '24_f5.0.png', '18_f2.0.png', '5_f4.5.png', '28_f14.png', '21_f2.8.png', '21_f4.5.png', '6_f4.5.png',
+            '19_f5.0.png', '29_f4.5.png', '24_f13.png', '21_f2.0.png', '14_f18.png', '2_f6.3.png', '28_f6.3.png',
+            '18_f14.png', '13_f18.png', '10_f5.6.png', '10_f2.8.png', '14_f2.0.png', '12_f2.0.png', '22_f4.0.png',
+            '17_f20.png', '24_f2.5.png', '24_f2.0.png', '29_f2.0.png', '7_f5.0.png', '26_f2.0.png', '2_f2.2.png',
+            '25_f6.3.png', '3_f14.png', '2_f5.0.png', '27_f2.0.png', '10_f3.5.png', '16_f9.0.png', '1_f2.0.png',
+            '20_f2.2.png', '30_f2.0.png', '22_f2.0.png', '5_f4.0.png', '15_f2.0.png', '30_f18.png', '8_f2.0.png',
+            '19_f2.0.png', '27_f16.png', '3_f2.0.png', '7_f2.0.png', '4_f8.0.png', '9_f2.0.png', '1_f7.1.png',
+            '12_f16.png', '20_f2.0.png', '27_f8.0.png', '10_f2.0.png', '13_f2.0.png', '11_f2.0.png', '11_f2.2.png',
+            '26_f5.6.png', '13_f2.8.png', '13_f9.0.png', '5_f8.0.png', '6_f2.0.png', '16_f2.0.png', '4_f2.0.png',
+            '23_f8.0.png'
+        ]
+        name_in_output = [file.name for file in output_directory.glob(f'*.{args.image_format}')]
+        assert len(set(name_in_output) - set(image_names)) == 0, \
+            ("The following images should not be in the output directory! \n"
+             f"{set(name_in_output) - set(image_names)}")
+        assert len(set(image_names) - set(name_in_output)) == 0, \
+            ("The following images are missing from the output directory! \n"
+             f"{set(image_names) - set(name_in_output)}")
+        for image_name in image_names:
+            assert (output_directory / image_name).exists(), (f"Could not find image file {image_name} "
+                                                              f"in outout directory {output_directory}!")
+        assert len(list(output_directory.glob(f'*.{args.image_format}'))) == 78, (f"Expected 78 {args.image_format} images in the output directory ({output_directory}), "
+                                                                           f"but found {len(output_directory.glob(f'*.{args.image_format}'))} images.")
+    else:
+        pass
+
+    # check if the metadata file exists
+    assert metadata_file.exists(), "Could not find metadata file!"
+
     make_archive(archive_file, 'zip', root_dir=output_directory)
 
     print(f"Please upload your submission file found at {archive_file.absolute()}.zip to https://www.codabench.org/competitions/12764/#/participate-tab!")
