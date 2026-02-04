@@ -1,4 +1,8 @@
-# Bokehlicious: <br/> Photorealistic Bokeh Rendering with Controllable Apertures
+# Bokehlicious: Photorealistic Bokeh Rendering with Controllable Apertures (ICCV 2025)
+
+### [Project Page](https://timseizinger.github.io/BokehliciousProjectPage/)
+
+----
 
 [Tim Seizinger](https://scholar.google.com/citations?user=PKdW78wAAAAJ), [Florin-Alexandru Vasluianu](https://scholar.google.com/citations?user=kHHzuyoAAAAJ), [Marcos V. Conde](https://mv-lab.github.io/), [Zongwei Wu](https://scholar.google.com/citations?user=3QSALjX498QC), [Radu Timofte](https://www.cvlai.net/)
 
@@ -6,7 +10,12 @@
 
 Official Code and Dataset repository of Bokehlicious: Photorealistic Bokeh Rendering with Controllable Apertures
 
-### [Project Page](https://timseizinger.github.io/BokehliciousProjectPage/)
+----
+
+**TLDR; We are the first method that renders photorealistic Bokeh in a controllable way using neural networks**
+
+<img src="https://github.com/user-attachments/assets/5b23014d-6cbb-40eb-9752-61b97ead73b3" width="30%">
+
 
 ### Updates:
 
@@ -59,6 +68,13 @@ Here _-dataset_ is the dataset you want to evaluate on (RealBokeh, RealBokeh_bin
 You can find our RealBokeh Dataset on Huggingface!
 
 [![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-lg.svg)](https://huggingface.co/datasets/timseizinger/RealBokeh_3MP)
+
+## Contact and License
+
+If you would like to use this code or dataset for commercial purposes, check the license and contact us.
+Feel free to contact us for other inquiries and collaborations.
+
+`{tim.seizinger, marcos.conde}[at]uni-wuerzburg.de`
 
 ## Citation
 
