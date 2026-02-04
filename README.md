@@ -1,4 +1,4 @@
-# Bokehlicious: Photorealistic Bokeh Rendering with Controllable Apertures (ICCV 2025)
+# [Bokehlicious: Photorealistic Bokeh Rendering with Controllable Apertures (ICCV 2025)](https://arxiv.org/abs/2503.16067)
 
 ### [Project Page](https://timseizinger.github.io/BokehliciousProjectPage/)
 
@@ -14,8 +14,9 @@ Official Code and Dataset repository of Bokehlicious: Photorealistic Bokeh Rende
 
 **TLDR; We are the first method that renders photorealistic Bokeh in a controllable way using neural networks**
 
-<img src="https://github.com/user-attachments/assets/5b23014d-6cbb-40eb-9752-61b97ead73b3" width="30%">
-
+<p align="center">
+ <img src="https://github.com/user-attachments/assets/5b23014d-6cbb-40eb-9752-61b97ead73b3" width="30%">
+</p>
 
 ### Updates:
 
