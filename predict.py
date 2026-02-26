@@ -6,6 +6,7 @@ from method.config import bokehlicious_size_builder
 
 from dataset.util import load_image
 from util.parser import get_predict_parser
+import numpy as np
 
 if __name__ == "__main__":
     parser = get_predict_parser()
@@ -41,3 +42,5 @@ if __name__ == "__main__":
     out_img.save(output_file)
 
     print(f"Saved result to {output_file}")
+
+    np.save(f'{args.out_path}/net_{args.size}_f{args.av}_{args.img_path.split("/")[-1].lower().replace(".jpg", ".npy")}', out.cpu().detach().squeeze(0).numpy())
